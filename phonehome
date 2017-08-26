@@ -1,0 +1,13 @@
+#!/bin/sh
+
+while true; do
+    if ! frequency=$(cat $SNAP_DATA/frequency); then
+	frequency='1m'
+    fi
+
+    if url=$(cat $SNAP_DATA/url); then
+	curl "$url" > /dev/null 2>&1
+    fi
+
+    sleep $frequency
+done

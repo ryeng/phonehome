@@ -1,0 +1,16 @@
+#!/bin/sh
+
+if ! url=$(snapctl get url); then
+    echo "URL is required"
+    exit 1
+fi
+
+if ! frequency=$(snapctl get frequency); then
+    frequency='1m'
+fi
+
+# Handle username and password, perhaps write to a credential file of some sort.
+echo "$url" > $SNAP_DATA/url
+chmod 600 $SNAP_DATA/url
+echo "$frequency" > $SNAP_DATA/frequency
+chmod 600 $SNAP_DATA/frequency

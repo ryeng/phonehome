@@ -1,0 +1,25 @@
+name: phonehome
+version: '0.2'
+summary: Phone home by sending periodic HTTP GET to any URL # 79 char long summary
+description: |
+  Phone home by sending periodic HTTP GET requests to any URL, allowing the
+  server side to detect the instance. The URL and frequency are read from the
+  "url" and "frequency" snap configuration options.
+
+grade: stable
+confinement: strict
+
+parts:
+  phonehome:
+    stage-packages: [curl]
+    plugin: dump
+    source: .
+    organize:
+      phonehome: bin/phonehome
+      usr/bin/curl: bin/curl
+
+apps:
+  phonehome:
+    command: bin/phonehome
+    daemon: simple
+    plugs: [network]
